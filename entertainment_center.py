@@ -10,12 +10,21 @@
 
 import media
 import fresh_tomatoes
+import urllib
+import json
 
-inception = media.Movie("Inception", "https://judgebyitscover.files.wordpress.com/2011/04/inception-poster-2.jpg", "https://www.youtube.com/watch?v=8hP9D6kZseM")
 
-shutter_island = media.Movie("Shutter Island", "https://images-na.ssl-images-amazon.com/images/M/MV5BMTMxMTIyNzMxMV5BMl5BanBnXkFtZTcwOTc4OTI3Mg@@._V1_UY1200_CR83,0,630,1200_AL_.jpg", "https://www.youtube.com/watch?v=lhBTlYQcBC0")
+movies = []
 
-southpaw = media.Movie("Southpaw", "http://pad.mymovies.it/filmclub/2015/03/252/locandina.jpg", "https://www.youtube.com/watch?v=Mh2ebPxhoLs")
+titles_and_links = [("Inception", "https://www.youtube.com/watch?v=8hP9D6kZseM"),("Shutter Island", "https://www.youtube.com/watch?v=lhBTlYQcBC0"),("Southpaw", "https://www.youtube.com/watch?v=Mh2ebPxhoLs")]
 
-movies = [inception, shutter_island, southpaw]
+for title, link in titles_and_links :
+	response = urllib.urlopen("http://www.omdbapi.com/?t="+ title + "&y=&plot=short&r=json")
+	content = json.loads(response.read())
+	poster_url = content["Poster"]
+	rating = content["imdbRating"]
+	movies.append(media.Movie(title, poster_url, link,rating))
+ 	
+
+#print(json_file)
 fresh_tomatoes.open_movies_page(movies)

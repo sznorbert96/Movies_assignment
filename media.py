@@ -11,12 +11,17 @@ import webbrowser
 class Movie():
     # This class provides a way to store movie related information
 
-    def __init__(self, movie_title, movie_poster_url, movie_trailer_url):
+    def __init__(self, movie_title, movie_poster_url, movie_trailer_url, rating):
         # initialize instance of class Movie
 	self.title = movie_title
 	self.poster_image_url = movie_poster_url
 	self.trailer_youtube_url = movie_trailer_url
+	self.rating = rating
     def open_trailer(self):
 	webbrowser.open(self.trailer_youtube_url)
+    def __repr__(self):
+	return self.trailer_youtube_url
+    def __str__(self):
+	return self.trailer_youtube_url
     
 
